@@ -1,0 +1,18 @@
+name: balena push deployment
+
+on: [push]
+
+jobs:
+  build_release:
+    runs-on: ubuntu-latest
+    name: Build application release
+    steps:
+      - uses: actions/checkout@v2
+      - name: balena-push-2048
+        uses: vipulgupta2048/balena-push@1
+        id: build
+        with:
+          balena_token: ${{ secrets.BALENA_TOKEN }}
+          application: getting-started
+      - name: Log release ID built
+        run: echo "Built release ID ${{ steps.build.outputs.release_id }}"
